@@ -43,4 +43,14 @@ return [
         'redirect_uri'  => env('GOOGLE_REDIRECT_URI'),
     ],
 
+    'gemini' => [
+        'key'   => env('GEMINI_API_KEY'),
+        // gemini-1.5-flash was shut down by Google in Sept 2025 and now returns a
+        // 404 on generateContent — that alone is enough to make every AI call fail
+        // validation/repair 3x and fall through to "Generation failed after retries",
+        // even with a perfectly valid API key. gemini-2.5-flash is the current
+        // fast/cheap default; override via GEMINI_MODEL if you want something else.
+        'model' => env('GEMINI_MODEL', 'gemini-2.5-flash'),
+    ],
+
 ];
