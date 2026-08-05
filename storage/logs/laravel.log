@@ -709,9 +709,9 @@
 #91 /Users/anushka/Desktop/Form-Forge/server.php(21): require_once('/Users/anushka/...')
 #92 {main}
 "} 
-[2026-08-05 14:14:19] local.WARNING: Gemini API call failed {"model":"gemini-1.5-flash","status":404,"error":"models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods."} 
-[2026-08-05 14:14:20] local.WARNING: Gemini API call failed {"model":"gemini-1.5-flash","status":404,"error":"models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods."} 
-[2026-08-05 14:14:20] local.WARNING: Gemini API call failed {"model":"gemini-1.5-flash","status":404,"error":"models/gemini-1.5-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods."} 
+[2026-08-05 14:14:19] local.WARNING: Gemini API call failed {"model":"gemini-3.6-flash","status":404,"error":"models/gemini-3.6-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods."} 
+[2026-08-05 14:14:20] local.WARNING: Gemini API call failed {"model":"gemini-3.6-flash","status":404,"error":"models/gemini-3.6-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods."} 
+[2026-08-05 14:14:20] local.WARNING: Gemini API call failed {"model":"gemini-3.6-flash","status":404,"error":"models/gemini-3.6-flash is not found for API version v1beta, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods."} 
 [2026-08-05 14:15:25] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (InvalidArgumentException(code: 0): App\\Logging\\AzureBlobLogger must be an instance of Monolog\\Handler\\HandlerInterface at /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php:372)
 [stacktrace]
 #0 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(210): Illuminate\\Log\\LogManager->createMonologDriver(Array)
@@ -1142,6 +1142,74 @@
 #30 {main}
 "} 
 [2026-08-05 14:58:51] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (InvalidArgumentException(code: 0): App\\Logging\\AzureBlobLogger must be an instance of Monolog\\Handler\\HandlerInterface at /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php:372)
+[stacktrace]
+#0 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(210): Illuminate\\Log\\LogManager->createMonologDriver(Array)
+#1 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\\Log\\LogManager->resolve('azure', Array)
+#2 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(112): Illuminate\\Log\\LogManager->get('azure')
+#3 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(101): Illuminate\\Log\\LogManager->driver('azure')
+#4 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(261): Illuminate\\Log\\LogManager->channel('azure')
+#5 [internal function]: Illuminate\\Log\\LogManager->{closure:Illuminate\\Log\\LogManager::createStackDriver():258}('azure', 0)
+#6 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Collections/Collection.php(695): array_map(Object(Closure), Array, Array)
+#7 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php(354): Illuminate\\Support\\Collection->map(Object(Closure))
+#8 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(258): Illuminate\\Support\\Collection->flatMap(Object(Closure))
+#9 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(210): Illuminate\\Log\\LogManager->createStackDriver(Array)
+#10 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\\Log\\LogManager->resolve('stack', Array)
+#11 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(112): Illuminate\\Log\\LogManager->get('stack')
+#12 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Queue/QueueServiceProvider.php(200): Illuminate\\Log\\LogManager->driver()
+#13 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Queue/Worker.php(152): Illuminate\\Queue\\QueueServiceProvider->{closure:{closure:Illuminate\\Queue\\QueueServiceProvider::registerWorker():194}:199}()
+#14 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Queue/Console/WorkCommand.php(117): Illuminate\\Queue\\Worker->daemon('sync', 'default', Object(Illuminate\\Queue\\WorkerOptions))
+#15 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Queue/Console/WorkCommand.php(100): Illuminate\\Queue\\Console\\WorkCommand->runWorker('sync', 'default')
+#16 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\\Queue\\Console\\WorkCommand->handle()
+#17 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Container/Util.php(40): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#18 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#19 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#20 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Container/Container.php(653): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#21 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Console/Command.php(136): Illuminate\\Container\\Container->call(Array)
+#22 /Users/anushka/Desktop/Form-Forge/vendor/symfony/console/Command/Command.php(298): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#23 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Console/Command.php(120): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#24 /Users/anushka/Desktop/Form-Forge/vendor/symfony/console/Application.php(1040): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#25 /Users/anushka/Desktop/Form-Forge/vendor/symfony/console/Application.php(301): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Queue\\Console\\WorkCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#26 /Users/anushka/Desktop/Form-Forge/vendor/symfony/console/Application.php(171): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#27 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Console/Application.php(94): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#28 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(129): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#29 /Users/anushka/Desktop/Form-Forge/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#30 {main}
+"} 
+[2026-08-05 15:05:17] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (InvalidArgumentException(code: 0): App\\Logging\\AzureBlobLogger must be an instance of Monolog\\Handler\\HandlerInterface at /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php:372)
+[stacktrace]
+#0 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(210): Illuminate\\Log\\LogManager->createMonologDriver(Array)
+#1 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\\Log\\LogManager->resolve('azure', Array)
+#2 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(112): Illuminate\\Log\\LogManager->get('azure')
+#3 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(101): Illuminate\\Log\\LogManager->driver('azure')
+#4 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(255): Illuminate\\Log\\LogManager->channel('azure')
+#5 [internal function]: Illuminate\\Log\\LogManager->{closure:Illuminate\\Log\\LogManager::createStackDriver():252}('azure', 0)
+#6 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Collections/Collection.php(695): array_map(Object(Closure), Array, Array)
+#7 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Collections/Traits/EnumeratesValues.php(354): Illuminate\\Support\\Collection->map(Object(Closure))
+#8 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(252): Illuminate\\Support\\Collection->flatMap(Object(Closure))
+#9 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(210): Illuminate\\Log\\LogManager->createStackDriver(Array)
+#10 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\\Log\\LogManager->resolve('stack', Array)
+#11 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(112): Illuminate\\Log\\LogManager->get('stack')
+#12 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Queue/QueueServiceProvider.php(200): Illuminate\\Log\\LogManager->driver()
+#13 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Queue/Worker.php(152): Illuminate\\Queue\\QueueServiceProvider->{closure:{closure:Illuminate\\Queue\\QueueServiceProvider::registerWorker():194}:199}()
+#14 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Queue/Console/WorkCommand.php(117): Illuminate\\Queue\\Worker->daemon('sync', 'default', Object(Illuminate\\Queue\\WorkerOptions))
+#15 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Queue/Console/WorkCommand.php(100): Illuminate\\Queue\\Console\\WorkCommand->runWorker('sync', 'default')
+#16 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(36): Illuminate\\Queue\\Console\\WorkCommand->handle()
+#17 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Container/Util.php(40): Illuminate\\Container\\BoundMethod::{closure:Illuminate\\Container\\BoundMethod::call():35}()
+#18 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(93): Illuminate\\Container\\Util::unwrapIfClosure(Object(Closure))
+#19 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Container/BoundMethod.php(35): Illuminate\\Container\\BoundMethod::callBoundMethod(Object(Illuminate\\Foundation\\Application), Array, Object(Closure))
+#20 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Container/Container.php(653): Illuminate\\Container\\BoundMethod::call(Object(Illuminate\\Foundation\\Application), Array, Array, NULL)
+#21 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Console/Command.php(136): Illuminate\\Container\\Container->call(Array)
+#22 /Users/anushka/Desktop/Form-Forge/vendor/symfony/console/Command/Command.php(298): Illuminate\\Console\\Command->execute(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#23 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Console/Command.php(120): Symfony\\Component\\Console\\Command\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Illuminate\\Console\\OutputStyle))
+#24 /Users/anushka/Desktop/Form-Forge/vendor/symfony/console/Application.php(1040): Illuminate\\Console\\Command->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#25 /Users/anushka/Desktop/Form-Forge/vendor/symfony/console/Application.php(301): Symfony\\Component\\Console\\Application->doRunCommand(Object(Illuminate\\Queue\\Console\\WorkCommand), Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#26 /Users/anushka/Desktop/Form-Forge/vendor/symfony/console/Application.php(171): Symfony\\Component\\Console\\Application->doRun(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#27 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Console/Application.php(94): Symfony\\Component\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#28 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(129): Illuminate\\Console\\Application->run(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#29 /Users/anushka/Desktop/Form-Forge/artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#30 {main}
+"} 
+[2026-08-05 15:05:17] laravel.EMERGENCY: Unable to create configured logger. Using emergency logger. {"exception":"[object] (InvalidArgumentException(code: 0): App\\Logging\\AzureBlobLogger must be an instance of Monolog\\Handler\\HandlerInterface at /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php:372)
 [stacktrace]
 #0 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(210): Illuminate\\Log\\LogManager->createMonologDriver(Array)
 #1 /Users/anushka/Desktop/Form-Forge/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\\Log\\LogManager->resolve('azure', Array)

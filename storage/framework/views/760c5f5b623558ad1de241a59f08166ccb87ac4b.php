@@ -1,7 +1,11 @@
 <div>
-    <div class="d-flex justify-content-between mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
         <input type="text" wire:model.debounce.400ms="search" class="form-control w-25" placeholder="Search submissions...">
-        <a href="<?php echo e(route('forms.submissions.export', $form->id)); ?>" class="btn btn-outline-secondary">Export CSV</a>
+        <?php if($form->submissions()->exists()): ?>
+            <a href="<?php echo e(route('forms.submissions.export', $form->id)); ?>" class="btn btn-outline-secondary">Export CSV</a>
+        <?php else: ?>
+            <span class="text-muted small">No submissions yet — nothing to export.</span>
+        <?php endif; ?>
     </div>
 
     <table class="table table-sm">
