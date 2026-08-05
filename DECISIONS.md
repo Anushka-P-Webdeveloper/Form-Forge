@@ -47,7 +47,15 @@ silent, what got prioritized and why, the Part D choices, and what's next.
 
 ## 4. What's Unfinished / Known Gaps
 
-- **Word/Excel import (Part C) — not built.** See README "What's Next" for the intended hybrid deterministic + AI approach.
+- **Word/Excel import (Part C) — built.** Deterministic parsing (`ImportParserService`) does the
+  bulk of the work (headings→sections, questions→fields, bullets→options for `.docx`; two
+  auto-detected layouts for `.xlsx`), with a single batched AI call (`GeminiService::classifyFieldTypes`)
+  only for field labels the keyword heuristics can't classify. Upload is queued
+  (`ParseFormImportJob`), and nothing is persisted as a real `Form` until the user confirms it on the
+  mapping screen (`ImportMapper` Livewire component) — same "never persist a broken schema" rule as
+  Part B. See README "Part C — Word/Excel Import" for the full flow and the committed sample files
+  under `/samples`. Table extraction from `.docx` was cut for time — reported as a warning on the
+  mapping screen rather than guessed at, so nothing silently disappears.
 - No automated tests (Pest/PHPUnit) were written today.
 - No Docker or CI.
 - No authentication — every form and every submission list is publicly reachable by anyone with the URL.

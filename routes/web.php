@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\FormController;
+use App\Http\Controllers\ImportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,18 @@ Route::prefix('forms')->group(function () {
     Route::delete('/{form}', [FormController::class, 'destroy'])->name('forms.destroy');
     Route::get('/{form}/submissions', [FormController::class, 'submissions'])->name('forms.submissions');
     Route::get('/{form}/submissions/export', [FormController::class, 'exportSubmissions'])->name('forms.submissions.export');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Part C — Word/Excel import (upload -> queued parse -> preview/mapping -> commit)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('imports')->group(function () {
+    Route::post('/', [ImportController::class, 'upload'])->name('imports.upload');
+    Route::get('/{formImport}/status', [ImportController::class, 'status'])->name('imports.status');
+    Route::get('/{formImport}/review', [ImportController::class, 'review'])->name('imports.review');
+    Route::post('/{formImport}/commit', [ImportController::class, 'commit'])->name('imports.commit');
 });
 
 // Public fill URL is throttled — Part D: basic rate limiting / spam protection

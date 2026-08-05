@@ -73,6 +73,46 @@ PROMPT;
         return $this->call($this->systemPrompt() . "\n\n" . $context);
     }
 
+    /**
+     * Part C — batch type inference for field labels the deterministic import
+     * parser couldn't confidently classify (e.g. "Preferred Track", "Best
+     * time to reach you"). One call for the whole document, keyed by the
+     * original array index so the caller can map answers straight back.
+     *
+     * Returns [index => type] using only App\Services\FormSchemaService::FIELD_TYPES.
+     * Throws on transport/API failure — callers are expected to catch and
+     * fall back to the deterministic guess, per the "never block an import
+     * on the AI layer" rule.
+     */
+    public function classifyFieldTypes(array $labelsByIndex): array
+    {
+        if (empty($this->apiKey)) {
+            throw new RuntimeException('GEMINI_API_KEY is not set in .env');
+        }
+
+        $types = implode(', ', \App\Services\FormSchemaService::FIELD_TYPES);
+        $prompt = <<<PROMPT
+You are classifying form-field labels imported from a document into field types.
+Allowed types: {$types}.
+Respond with ONLY a raw JSON object mapping each given index to one allowed type, e.g. {"0": "text", "1": "dropdown"}.
+No commentary, no markdown fences.
+
+Labels by index:
+PROMPT;
+
+        foreach ($labelsByIndex as $i => $label) {
+            $prompt .= "\n{$i}: {$label}";
+        }
+
+        $result = $this->call($prompt);
+
+        if (!$result['http_ok'] || !is_array($result['schema'])) {
+            throw new RuntimeException($result['api_error'] ?? 'Classification failed');
+        }
+
+        return $result['schema'];
+    }
+
     protected function call(string $fullPrompt): array
     {
         if (empty($this->apiKey)) {

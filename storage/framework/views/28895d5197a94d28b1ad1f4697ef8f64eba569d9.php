@@ -21,6 +21,7 @@
 
     <?php echo \Livewire\Livewire::scripts(); ?>
 
+    <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
 </html>
 <?php /**PATH /Users/anushka/Desktop/Form-Forge/resources/views/layouts/builder.blade.php ENDPATH**/ ?>

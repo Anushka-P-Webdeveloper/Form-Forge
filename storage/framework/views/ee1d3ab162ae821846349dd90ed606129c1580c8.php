@@ -10,15 +10,15 @@
             <?php
 if (! isset($_instance)) {
     $html = \Livewire\Livewire::mount('ai-form-generator')->html();
-} elseif ($_instance->childHasBeenRendered('qklOOab')) {
-    $componentId = $_instance->getRenderedChildComponentId('qklOOab');
-    $componentTag = $_instance->getRenderedChildComponentTagName('qklOOab');
+} elseif ($_instance->childHasBeenRendered('wurTun0')) {
+    $componentId = $_instance->getRenderedChildComponentId('wurTun0');
+    $componentTag = $_instance->getRenderedChildComponentTagName('wurTun0');
     $html = \Livewire\Livewire::dummyMount($componentId, $componentTag);
-    $_instance->preserveRenderedChild('qklOOab');
+    $_instance->preserveRenderedChild('wurTun0');
 } else {
     $response = \Livewire\Livewire::mount('ai-form-generator');
     $html = $response->html();
-    $_instance->logRenderedChild('qklOOab', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
+    $_instance->logRenderedChild('wurTun0', $response->id(), \Livewire\Livewire::getRootElementTagName($html));
 }
 echo $html;
 ?>
@@ -26,10 +26,13 @@ echo $html;
         <div class="col-md-7">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="mb-0">My Forms</h4>
-                <form method="POST" action="<?php echo e(route('forms.create')); ?>">
-                    <?php echo csrf_field(); ?>
-                    <button class="btn btn-outline-primary">+ New blank form</button>
-                </form>
+                <div class="d-flex gap-2">
+                    <a href="<?php echo e(route('forms.import')); ?>" class="btn btn-outline-secondary">Import Word/Excel</a>
+                    <form method="POST" action="<?php echo e(route('forms.create')); ?>">
+                        <?php echo csrf_field(); ?>
+                        <button class="btn btn-outline-primary">+ New blank form</button>
+                    </form>
+                </div>
             </div>
 
             <table class="table bg-white">

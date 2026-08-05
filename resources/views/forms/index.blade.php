@@ -13,10 +13,13 @@
         <div class="col-md-7">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h4 class="mb-0">My Forms</h4>
-                <form method="POST" action="{{ route('forms.create') }}">
-                    @csrf
-                    <button class="btn btn-outline-primary">+ New blank form</button>
-                </form>
+                <div class="d-flex gap-2">
+                    <a href="{{ route('forms.import') }}" class="btn btn-outline-secondary">Import Word/Excel</a>
+                    <form method="POST" action="{{ route('forms.create') }}">
+                        @csrf
+                        <button class="btn btn-outline-primary">+ New blank form</button>
+                    </form>
+                </div>
             </div>
 
             <table class="table bg-white">

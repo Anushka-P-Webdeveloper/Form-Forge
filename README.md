@@ -27,7 +27,7 @@ This was built in a single day against a multi-part brief. Following the brief's
 - **Database:** MySQL 8
 - **Queue:** Laravel queues (`database` driver by default) — `GenerateFormJob` and `EditFormWithAiJob`
 - **AI Provider:** Google Gemini (`gemini-1.5-flash`), called directly from Laravel via `Http` facade — no separate FastAPI service, given the timeframe
-- **New packages added:** `livewire/livewire`, `maatwebsite/excel` and `phpoffice/phpword` (added to `composer.json` in preparation for Part C, **not yet wired up** — see Known Limitations)
+- **New packages added:** `livewire/livewire`, `phpoffice/phpword` and `phpoffice/phpspreadsheet` (Part C import), `maatwebsite/excel` (kept as a dependency of the Excel stack)
 
 ## ⚙️ Setup Instructions
 
@@ -164,9 +164,51 @@ Full writeups with problem/implementation/trade-offs are in `DECISIONS.md`. Summ
 3. **AI multi-language forms** — not a separate feature, reuses the AI-edit pipeline
    (e.g. "translate labels to Hindi"); flagged as untested rather than claimed as done.
 
+## 📥 Part C — Word/Excel Import
+
+`/forms/import` → drag/drop or pick a `.docx`/`.xlsx` file → uploaded to `storage/app/imports`
+→ `ParseFormImportJob` (queued, same pattern as Part B's `GenerateFormJob`) parses it →
+preview/mapping screen at `/imports/{id}/review` → **Create Form from Import** persists a normal,
+fully editable `Form` row through the same `FormSchemaService::validate()` path as manual save and
+AI generation.
+
+**Hybrid parsing, as asked for in the brief:**
+- **Deterministic first** (`app/Services/ImportParserService.php`):
+  - **Word** (`phpoffice/phpword`): `Title` elements / bold short lines → sections; lines ending in
+    `?`, `:`, or containing `____` → fields; `ListItem` bullets right after a question → its options
+    (auto-upgrades the field to `dropdown`); tables are intentionally *not* guessed at — reported as
+    a warning instead ("report unparseable blocks clearly").
+  - **Excel** (`phpoffice/phpspreadsheet`): two layouts, auto-detected from the header row —
+    a **structured** `Label | Type | Required | Options | Help Text` sheet (explicit, no guessing
+    needed), and a plain **header-row** sheet where each column header becomes a field label.
+  - A keyword table (`email`, `phone`, `dob`/`date`, `upload`/`resume` → `file`, `rating`, etc.)
+    infers the type from the label text — no AI call for the common case.
+- **AI only for what's genuinely ambiguous**: labels the keyword table can't classify are batched
+  into **one** `GeminiService::classifyFieldTypes()` call for the whole document (not one call per
+  field). If the AI layer is unavailable or errors, the field just keeps its deterministic `text`
+  fallback — an import never fails because of the AI layer.
+- **Preview & mapping screen** (`app/Http/Livewire/ImportMapper.php`): every field shows a
+  **Detected / AI-inferred / Guessed — check me** badge, and label, type, options and the required
+  flag are all editable before the user commits. Nothing is written to the `forms` table until they
+  click "Create Form from Import".
+- **Never persists a broken schema**: the job re-validates (and repairs, via the same
+  `FormSchemaService::repair()` used for AI generation) before ever showing the mapping screen; if
+  zero fields are detected the import is marked `failed` with the warnings attached instead of
+  showing an empty mapping screen.
+
+Sample files used to build and test this (committed under `/samples`):
+- `samples/internship-application.docx` — sections, required markers, free-text and choice
+  questions, plus a deliberately unstructured table to exercise the warnings path.
+- `samples/header-row-employee-survey.xlsx` — plain header-row layout.
+- `samples/structured-job-application.xlsx` — structured `Label | Type | Required | Options` layout,
+  covering every field type including `dropdown`, `radio`, `checkbox` and `file`.
+
+**Known gaps:** table extraction from `.docx` is intentionally out of scope (flagged as a warning,
+not guessed at); very large files are read into memory by PhpSpreadsheet/PhpWord rather than
+streamed — fine at the sizes this brief targets, would need a streaming reader for very large sheets.
+
 ## ⚠️ Known Limitations
 
-- **Word/Excel import (Part C) is not built.**
 - Drag-and-drop field reordering was replaced with up/down buttons.
 - No authentication/multi-tenancy — anyone with the `/forms` URL can manage all forms. Fine for a demo, not for production.
 - Livewire's own AJAX endpoint isn't covered by the `throttle:30,1` route middleware (that only guards the initial page load), so real spam protection on submission itself currently relies on the honeypot alone.
@@ -177,10 +219,10 @@ Full writeups with problem/implementation/trade-offs are in `DECISIONS.md`. Summ
 
 ## 🧭 What's Next (with more time)
 
-1. Word/Excel import (Part C): deterministic parsing first — `phpoffice/phpword` for headings/paragraphs/lists in `.docx`, `maatwebsite/excel` for a header-row `.xlsx` layout — then a preview/mapping screen, using Gemini only to infer field type/validation where the document is ambiguous, per the brief's "hybrid approach."
+1. `.docx` table extraction for the import pipeline (currently reported as a warning, not parsed).
 2. Auth + multi-tenant scoping on forms.
 3. Move Livewire actions behind the same throttling as the page routes (custom middleware or Livewire's `component` rate limiting).
-4. Pest test suite for `FormSchemaService` (the highest-value target — everything else depends on it) and the submission validation path.
+4. Pest test suite for `FormSchemaService` and `ImportParserService` (the two highest-value targets — everything else depends on them) and the submission validation path.
 5. Full version history instead of single-step rollback.
 6. Docker Compose + a basic CI workflow.
 
